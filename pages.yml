@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Uso: ./atualizar.sh caminho/para/imperacraft-checklist.html
+# Copia a nova versão para site/index.html, faz commit e push.
+# O GitHub Actions publica o site sozinho depois do push.
+set -e
+[ -f "$1" ] || { echo "Informe o arquivo HTML novo."; exit 1; }
+cp "$1" site/index.html
+git add site/index.html
+git commit -m "Atualiza checklist ($(date +%F))" || { echo "Nada mudou."; exit 0; }
+git push
